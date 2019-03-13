@@ -1,7 +1,11 @@
 package misc;
 
+import datastructures.concrete.ArrayHeap;
+import datastructures.concrete.DoubleLinkedList;
 import datastructures.interfaces.IList;
-import misc.exceptions.NotYetImplementedException;
+import datastructures.interfaces.IPriorityQueue;
+//import misc.exceptions.NotYetImplementedException;
+
 
 public class Sorter {
     /**
@@ -31,7 +35,38 @@ public class Sorter {
         //
         // - You should implement this method by using your ArrayHeap for the sake of
         //   efficiency.
+        IList<T> ilist = new DoubleLinkedList<>();
+        IPriorityQueue<T> heap = new ArrayHeap<>();
+        int size = input.size();
+        if (input == null || k < 0) {
+            throw new IllegalArgumentException();
+        }
+        if (k == 0) {
+            return new DoubleLinkedList<>();
+        }
+        if (size < k) {
+            k = size;
+        }
 
-        throw new NotYetImplementedException();
+
+        for (T item : input) {
+            heap.insert(item);
+            if (heap.size() > k) {
+                heap.removeMin();
+            }
+        }
+
+        //
+        // for (T item : input) {
+        //     heap.insert(item);
+        // }
+        // while (heap.size()>k){
+        //     heap.removeMin();
+        // }
+        for (int i = 0; i < k; i++) {
+            ilist.add(heap.removeMin());
+        }
+        return ilist;
+
     }
 }

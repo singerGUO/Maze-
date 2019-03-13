@@ -1,8 +1,8 @@
 package datastructures.concrete;
 
-import datastructures.interfaces.IEdge;
-import datastructures.interfaces.IList;
-import datastructures.interfaces.ISet;
+import datastructures.concrete.dictionaries.ChainedHashDictionary;
+import datastructures.interfaces.*;
+import misc.Sorter;
 import misc.exceptions.NoPathExistsException;
 import misc.exceptions.NotYetImplementedException;
 
@@ -51,6 +51,9 @@ public class Graph<V, E extends IEdge<V> & Comparable<E>> {
     //
     // Working with generics is really not the focus of this class, so if you
     // get stuck, let us know we'll try and help you get unstuck as best as we can.
+    private IDictionary<V, IList<E>> map;
+    private IList<E> edgeList;
+    private IList<V> vertexList;
 
     /**
      * Constructs a new graph based on the given vertices and edges.
@@ -61,8 +64,28 @@ public class Graph<V, E extends IEdge<V> & Comparable<E>> {
      * @throws IllegalArgumentException if vertices or edges are null or contain null
      */
     public Graph(IList<V> vertices, IList<E> edges) {
-        // TODO: Your code here
+        //undirected graph
+        map = new ChainedHashDictionary<>();
+        edgeList = edges;
+        vertexList = vertices;
+        for (V vertice : vertices) {
+            map.put(vertice, new DoubleLinkedList<>());
+        }
+        for (E edge : edges) {
+            if ((edge.getWeight() < 0)) {
+                throw new IllegalArgumentException("negative weight");
+            }
+            if (!vertices.contains(edge.getVertex1()) || !vertices.contains(edge.getVertex2())) {
+                throw new IllegalArgumentException("connects to the vertex not in the list");
+            }
+            if (vertices.contains(null) || edgeList.contains(null)) {
+                throw new IllegalArgumentException("throw out null exception");
+            }
+            map.get(edge.getVertex1()).add(edge);
+            map.get(edge.getVertex2()).add(edge);
+        }
     }
+
 
     /**
      * Sometimes, we store vertices and edges as sets instead of lists, so we
@@ -96,27 +119,42 @@ public class Graph<V, E extends IEdge<V> & Comparable<E>> {
      * Returns the number of vertices contained within this graph.
      */
     public int numVertices() {
-        throw new NotYetImplementedException();
+        return vertexList.size();
     }
 
     /**
      * Returns the number of edges contained within this graph.
      */
     public int numEdges() {
-        throw new NotYetImplementedException();
+        return edgeList.size();
     }
 
     /**
      * Returns the set of all edges that make up the minimum spanning tree of
      * this graph.
-     *
+     * <p>
      * If there exists multiple valid MSTs, return any one of them.
-     *
+     * <p>
      * Precondition: the graph does not contain any unconnected components.
      */
     public ISet<E> findMinimumSpanningTree() {
-        throw new NotYetImplementedException();
+        ISet<E> mst = new ChainedHashSet<>();
+        IDisjointSet<V> disjointSet = new ArrayDisjointSet<>();
+        for (V vertex : this.vertexList) {
+            disjointSet.makeSet(vertex);
+        }
+        IList<E> Sortededge = Sorter.topKSort(numEdges(), edgeList);
+        for (E edge : Sortededge) {
+            if (disjointSet.findSet(edge.getVertex1()) != disjointSet.findSet(edge.getVertex2())) {
+                disjointSet.union(edge.getVertex1(), edge.getVertex2());
+                mst.add(edge);
+            }
+
+        }
+        return mst;
     }
+
+
 
     /**
      * Returns the edges that make up the shortest path from the start
@@ -132,6 +170,6 @@ public class Graph<V, E extends IEdge<V> & Comparable<E>> {
      * @throws IllegalArgumentException if start or end is null
      */
     public IList<E> findShortestPathBetween(V start, V end) {
-        throw new NotYetImplementedException();
+
     }
 }

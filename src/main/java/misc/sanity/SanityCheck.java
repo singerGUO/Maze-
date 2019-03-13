@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.function.Function;
 
 // Checkstyle will report an error with this line:
-import datastructures.concrete.DoubleLinkedList;
+//import datastructures.concrete.DoubleLinkedList;
 
 public class SanityCheck {
     public static void main(String[] args) {

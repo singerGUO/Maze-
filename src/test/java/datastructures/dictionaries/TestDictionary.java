@@ -147,7 +147,7 @@ public abstract class TestDictionary extends BaseTest {
                 dict);
     }
 
-    @Test(timeout=SECOND)
+    @Test(timeout = SECOND)
     public void testGetNonexistentKeyThrowsException() {
         IDictionary<String, Integer> dict = this.newDictionary();
 
