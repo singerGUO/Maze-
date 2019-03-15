@@ -23,13 +23,14 @@ public class KruskalMazeCarver implements MazeCarver {
         Random rand=new Random();
         //assign each wall of differnet wieghts;
         for (Wall wall : edge) {
-            wall.setDistance(rand.nextInt(50));
+            wall.setDistance(rand.nextInt(100));
 
         }
+        ISet<Wall> mst = graph.findMinimumSpanningTree();
         for (Wall wall : edge) {
             wall.resetDistanceToOriginal();
         }
-        ISet<Wall> mst = graph.findMinimumSpanningTree();
+        // ISet<Wall> mst = graph.findMinimumSpanningTree();
         return mst;
 
         // Note: make sure that the input maze remains unmodified after this method is over.

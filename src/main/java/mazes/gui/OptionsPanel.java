@@ -129,7 +129,7 @@ public class OptionsPanel extends JPanel {
         } catch (NoPathExistsException ex) {
             JOptionPane.showMessageDialog(
                     null,
-                    "This maze seems to be unsolveable -- no path could be found between the start and the end!");
+                    "Why so serious");
         }
     }
 
