@@ -19,17 +19,17 @@ public class KruskalMazeCarver implements MazeCarver {
     public ISet<Wall> returnWallsToRemove(Maze maze) {
         ISet<Room> vertex=maze.getRooms();
         ISet<Wall> edge=maze.getWalls();
-        Graph<Room,Wall> graph=new Graph<>(vertex,edge);
+        Graph<Room, Wall> graph = new Graph<>(vertex, edge);
         Random rand=new Random();
         //assign each wall of differnet wieghts;
-        for(Wall wall:edge){
+        for (Wall wall : edge) {
             wall.setDistance(rand.nextInt(50));
 
         }
-        ISet<Wall> mst= graph.findMinimumSpanningTree();
-        for(Wall wall:edge){
+        for (Wall wall : edge) {
             wall.resetDistanceToOriginal();
         }
+        ISet<Wall> mst = graph.findMinimumSpanningTree();
         return mst;
 
         // Note: make sure that the input maze remains unmodified after this method is over.
