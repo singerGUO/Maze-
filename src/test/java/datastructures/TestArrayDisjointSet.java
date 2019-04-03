@@ -64,7 +64,25 @@ public class TestArrayDisjointSet extends BaseTest {
             check(forest, items, new int[] {id, id, id, 3, 4});
         }
     }
-
+    // @Test(timeout=SECOND)
+    // public void testUnionqualTrees() {
+    //     String[] items = new String[] {"a", "b", "c", "d", "e","f"};
+    //     IDisjointSet<String> forest = this.createForest(items);
+    //
+    //     forest.union("a", "b");
+    //     System.out.println(((ArrayDisjointSet<String>) forest).findRank("a"));
+    //     forest.union("d", "c");
+    //     System.out.println(((ArrayDisjointSet<String>) forest).findRank("d"));
+    //     forest.union("a", "d");
+    //     System.out.println(((ArrayDisjointSet<String>) forest).findRank("a"));
+    //     forest.union("e", "f");
+    //     System.out.println(((ArrayDisjointSet<String>) forest).findRank("e"));
+    //     forest.union("a", "e");
+    //     System.out.println(((ArrayDisjointSet<String>) forest).findRank("a"));
+    //
+    //
+    //
+    // }
     @Test(timeout=SECOND)
     public void testIllegalFindSet() {
         String[] items = new String[] {"a", "b", "c", "d", "e"};

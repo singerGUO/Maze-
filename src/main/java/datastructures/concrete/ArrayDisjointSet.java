@@ -94,6 +94,15 @@ public class ArrayDisjointSet<T> implements IDisjointSet<T> {
         int index2=findSet(item2);
         int rankV1=pointers[index1];
         int rankV2=pointers[index2];
+        // if (rankV1 <= rankV2) {
+        //     pointers[index2]=index1;
+        //     pointers[index1]-=1;
+        // } else {
+        //
+        //     pointers[index1]=index2;
+        //     pointers[index2]-=1;
+        // }
+
         if (rankV1 == rankV2) {
             pointers[index2]=index1;
             pointers[index1]-=1;
@@ -113,6 +122,11 @@ public class ArrayDisjointSet<T> implements IDisjointSet<T> {
         pointers[modify] = result;
         resetRank(pointers[modify], result);
     }
+    //for testing correct rank
+    // public int findRank(T item){
+    //     int index1=findSet(item);
+    //     return -pointers[index1]-1;
+    // }
 
 
 
