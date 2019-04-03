@@ -1,3 +1,2 @@
-# CSE 373 HW7
+#cse 373 uw maze 
 
-Please visit the assignment page on the course website for instructions on this assignment.
